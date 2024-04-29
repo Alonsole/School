@@ -22,7 +22,14 @@ class Student:
                 lecturer.grades[course] = [grade]
         else:
             return 'Ошибка'
-
+            
+    def __lt__(self, other):
+        """Для сравнения"""
+        if not isinstance(other, Student):
+            print("Не студент")
+            return
+        return self.average_rating_student() < other.average_rating_student()  
+        
     def __str__(self):
         """Вывод информации по студентам"""
         student_average_rating = self.average_rating_student()
@@ -83,6 +90,12 @@ class Lecturer(Mentor):
         final_lecturer_rating = sum(lecturer_rating) / len(lecturer_rating)
         return final_lecturer_rating
 
+    def __lt__(self, other):
+        """Для сравнения"""
+        if not isinstance(other, Lecturer):
+            print("Не лектор")
+            return
+        return self.average_rating_lecturer() < other.average_rating_lecturer()
 
 class Reviewer(Mentor):
     """Наследуемый класс Ревьюер от Ментора"""
@@ -155,7 +168,9 @@ print(f"Средний балл {student1.average_rating_student()} студен
 print(f"Средний балл {lecturer1.average_rating_lecturer()} лектора {lecturer1.name} больше среднего балла "
       f"{lecturer2.average_rating_lecturer()} лектора {lecturer2.name} - "
       f"{lecturer1.average_rating_lecturer() > lecturer2.average_rating_lecturer()}")
-
+print("\n")
+print(student1 > student3)
+print(lecturer1 > lecturer2)
 print("\n")
 '''Средняя оценка студентов и лекторов'''
 student_average_grade_for_course([student1, student2, student3], "Python")
